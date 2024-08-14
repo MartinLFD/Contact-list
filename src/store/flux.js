@@ -29,7 +29,7 @@ const getState = ({ getActions, getStore, setStore }) => {
       },
 
       handleOnSubmit: (value) => {
-        console.log(value)
+        console.log(value)  
         fetch("https://playground.4geeks.com/contact/agendas/MartinLeiva/contacts", {
           method: "POST",
           headers: {
@@ -38,12 +38,12 @@ const getState = ({ getActions, getStore, setStore }) => {
           body: JSON.stringify(value),
         }).then((response) => response.json())
           .then((data) => {
-            console.log(data)
+          console.log(data)
             getActions().getContact();
           })
           .catch((error) => console.log(error));
       },
-// handleOnSubmit no añade el contacto
+
 
 
       deletePost: (contactid) => {
@@ -59,10 +59,28 @@ const getState = ({ getActions, getStore, setStore }) => {
             getActions().getContact()
           }
         })
-         .catch((error) => console.log(error))
+         .catch((error) => console.log(error)) 
+          console.log(contactid)
       },
-// deletePost funciona pero solo recargando la página
+    
+      editPost: (id, edit ) => {
+      
+        fetch(`https://playground.4geeks.com/contact/agendas/MartinLeiva/contacts/${id}` ,{
+          method: "PUT",
+          body: JSON.stringify(edit),
+          headers: {
+            "Content-Type":"application/json",
+          },
 
+        })
+        .then((response) => {
+          if(response === 200) {
+            response.json();
+          } 
+             
+        }).catch((error) => console.log(error))
+          
+      }
 
     },
 
